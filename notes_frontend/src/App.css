@@ -1,104 +1,479 @@
-/* CSS Variables for Theme Management */
+/* Retro Notes Theme (plain CSS) */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --bg: #0b1020;
+  --surface: #121a33;
+  --surface-2: #0f1730;
+  --border: #2a3767;
+  --text: #f7f7ff;
+  --muted: rgba(247, 247, 255, 0.72);
+
+  --accent: #22c55e;
+  --accent-2: #60a5fa;
+  --danger: #ef4444;
+
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.25);
+
+  --radius: 14px;
+
+  --font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background:
+    radial-gradient(1000px 600px at 20% 10%, rgba(96, 165, 250, 0.16), transparent 60%),
+    radial-gradient(900px 520px at 80% 0%, rgba(34, 197, 94, 0.14), transparent 60%),
+    radial-gradient(900px 620px at 60% 90%, rgba(239, 68, 68, 0.10), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Top bar */
+.TopBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(42, 55, 103, 0.55);
+  background: rgba(11, 16, 32, 0.72);
+  backdrop-filter: blur(10px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.BrandMark {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 2px solid rgba(34, 197, 94, 0.9);
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.26), rgba(96, 165, 250, 0.22)),
+    rgba(18, 26, 51, 0.85);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-soft);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.BrandText {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  gap: 2px;
+  min-width: 220px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.AppTitle {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.AppSubtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.TopBarActions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+@media (min-width: 720px) {
+  .Brand {
+    justify-content: space-between;
+  }
+
+  .TopBarActions {
+    margin-top: 0;
+  }
+}
+
+/* Buttons */
+.Btn {
+  appearance: none;
+  border: 1px solid rgba(42, 55, 103, 0.85);
+  background: rgba(18, 26, 51, 0.85);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.08s ease, opacity 0.15s ease, border-color 0.15s ease;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.Btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(96, 165, 250, 0.7);
 }
 
-.theme-toggle:active {
+.Btn:active {
   transform: translateY(0);
+  opacity: 0.92;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.Btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.BtnPrimary {
+  border-color: rgba(34, 197, 94, 0.9);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(96, 165, 250, 0.18)),
+    rgba(18, 26, 51, 0.9);
+}
+
+.BtnDanger {
+  border-color: rgba(239, 68, 68, 0.9);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(18, 26, 51, 0.9)),
+    rgba(18, 26, 51, 0.9);
+}
+
+/* Layout */
+.Main {
+  padding: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.Panel {
+  width: min(1100px, 100%);
+  background: rgba(18, 26, 51, 0.78);
+  border: 1px solid rgba(42, 55, 103, 0.75);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.PanelHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(42, 55, 103, 0.9);
+}
+
+.PanelTitle {
+  margin: 0;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.PanelMeta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.Pill {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(42, 55, 103, 0.9);
+  background: rgba(15, 23, 48, 0.85);
+  color: var(--muted);
+}
+
+/* Toolbar */
+.Toolbar {
+  padding: 12px 0 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.Search {
+  display: grid;
+  gap: 6px;
+  width: min(520px, 100%);
+}
+
+.SearchLabel {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.Input,
+.Textarea {
+  width: 100%;
+  border: 1px solid rgba(42, 55, 103, 0.95);
+  background: rgba(15, 23, 48, 0.9);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  font-family: var(--font);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.Input:focus,
+.Textarea:focus {
+  border-color: rgba(96, 165, 250, 0.9);
+  box-shadow:
+    inset 0 0 0 1px rgba(96, 165, 250, 0.35),
+    0 0 0 3px rgba(96, 165, 250, 0.14);
+}
+
+.Textarea {
+  resize: vertical;
+}
+
+/* Notes grid */
+.NotesGrid {
+  list-style: none;
+  padding: 12px 0 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 720px) {
+  .NotesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (min-width: 1050px) {
+  .NotesGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+.NoteCard {
+  border: 1px solid rgba(42, 55, 103, 0.85);
+  background: linear-gradient(180deg, rgba(18, 26, 51, 0.92), rgba(15, 23, 48, 0.92));
+  border-radius: var(--radius);
+  padding: 12px 12px 10px;
+  box-shadow: var(--shadow-soft);
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.NoteCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.NoteTitle {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.NoteActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.IconBtn {
+  appearance: none;
+  border: 1px solid rgba(42, 55, 103, 0.85);
+  background: rgba(11, 16, 32, 0.55);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  transition: transform 0.08s ease, opacity 0.15s ease, border-color 0.15s ease;
+}
+
+.IconBtn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(96, 165, 250, 0.8);
+}
+
+.IconBtn:active {
+  transform: translateY(0);
+  opacity: 0.92;
+}
+
+.IconBtnDanger:hover {
+  border-color: rgba(239, 68, 68, 0.9);
+}
+
+.NoteContent {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+.NoteFooter {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Timestamp {
+  font-size: 11px;
+  color: rgba(247, 247, 255, 0.58);
+}
+
+.Muted {
+  color: rgba(247, 247, 255, 0.56);
+}
+
+/* Empty state */
+.EmptyState {
+  margin-top: 14px;
+  padding: 18px;
+  border-radius: var(--radius);
+  border: 1px dashed rgba(42, 55, 103, 0.9);
+  background: rgba(15, 23, 48, 0.65);
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.EmptyIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(96, 165, 250, 0.9);
+  background: rgba(18, 26, 51, 0.85);
+  box-shadow: var(--shadow-soft);
+  font-weight: 900;
+}
+
+.EmptyTitle {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+}
+
+.EmptyText {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Modal */
+.ModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 100;
+}
+
+.Modal {
+  width: min(720px, 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(42, 55, 103, 0.95);
+  background: linear-gradient(180deg, rgba(18, 26, 51, 0.96), rgba(15, 23, 48, 0.96));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.ModalHeader {
+  padding: 14px 14px 12px;
+  border-bottom: 1px solid rgba(42, 55, 103, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ModalTitle {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ModalBody {
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.Field {
+  display: grid;
+  gap: 6px;
+}
+
+.FieldLabel {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ModalHint {
+  font-size: 12px;
+  color: rgba(247, 247, 255, 0.62);
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(42, 55, 103, 0.75);
+  background: rgba(11, 16, 32, 0.45);
+}
+
+.ModalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+/* Footer */
+.Footer {
+  padding: 8px 18px 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.FooterText {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(247, 247, 255, 0.6);
+}
+
+.FooterText code {
+  color: rgba(96, 165, 250, 0.92);
 }
